@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit data</title>
+</head>
+<body>
+
+    <form>
+        <div>
+            NAMA
+            <input type="text" id="txNAMA">
+        </div>
+        <div>
+            EMAIL
+            <input type="text" id="txEMAIL">
+        </div>
+        <div>
+            USERNAME
+            <input type="text" id="txUSERNAME">
+        </div>
+        <div>
+            PASSWORD
+            <input type="password" id="txPASS">
+        </div>
+    </form>
+    
+
+    <script>
+        const qs = window.location.search;
+        const urlP = new URLSearchParams(qs);
+        let idp = urlP.get("id");
+        if(idp==null) location.href = "latihan01.html";
+
+        let cx = "https://webpro.ptov.my.id/api/curduser.php?aksi=get&q="+idp;
+        const bacadta = new XMLHttpRequest();
+        bacadta.open("GET", cx)
+        bacadta.send();
+        bacadta.onload = function(){
+            const dta = JSON.parse(this.responseText);
+            console.log(dta);
+            document.getElementById("txNAMA").value = dta.isi[0][0];
+            document.getElementById("txEMAIL").value = dta.isi[0][1];
+            document.getElementById("txUSERNAME").value = dta.isi[0][2];
+
+            
+        }
+    </script>
+</body>
+</html>

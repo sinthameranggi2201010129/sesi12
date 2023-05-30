@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>latihan 1 sesi 12</title>
+</head>
+
+<body>
+    <h3>daftar user</h3>
+    <div id = "tampil"></div>
+
+    <script>
+        const bacadta = new XMLHttpRequest();
+        bacadta.open("get","https://webpro.ptov.my.id/api/curduser.php?aksi=get");
+        bacadta.send();
+        bacadta.onload=function(){
+            const dta = JSON.parse(this.responseText);
+            let tx = '<table> <tr> <td>#</td> <td>nama</td> <td>email</td> <td>username</td> <td>aksi</td> </tr>';
+                let no = 1;
+                for(let i=0; i< dta.isi.length; i++){
+                tx += '<tr>';
+                tx += '<td>'+no+'</td>';
+                tx += '<td>'+dta.isi[i][0]+'</td>';
+                tx += '<td>'+dta.isi[i][1]+'</td>';
+                tx += '<td>'+dta.isi[i][2]+'</td>';
+                tx += '<td><a href="latihan01-edit.html?id='+dta.isi[i][3]+'"> Edit </a> <a href="latihan01-hapus.html?id='+dta.isi[i][3]+'"> Hapus </a></td>';
+                tx += '</tr>';
+
+                }
+                tx +='</table>';
+            
+            document.getElementById("tampil").innerHTML = tx;
+        }
+    </script>
+</body>
+</html>
